@@ -1,3 +1,11 @@
+/*
+NBA Data Exploration
+
+Skills used: Joins, CTEs, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+
+
+*/
+
 --Check tables
 SELECT *
 FROM PortfolioProjectNBA..[nbastats96-21]
@@ -64,7 +72,7 @@ FROM PortfolioProjectNBA..[nbastats96-21]
 GROUP BY season
 ORDER BY 1
 
---Calculate advanced metrics (eFG%, FTR, TS%) for LeBron James with his shooting statistics
+--Calculate advanced metrics (eFG%, FTR, TS%) for LeBron James by joining shooting statistics
 SELECT a.player_name, a.season, a.age, b.Tm, b.Pos, b.G, b.GS, b.MP, a.pts AS PTS, a.reb AS REB, a.ast AS AST, b.[FG%], b.[3P%]
 , ROUND((b.FG + b.[3P] * 0.5) / b.FGA, 3) AS 'eFG%'
 , b.[FT%]
@@ -120,3 +128,4 @@ GROUP BY college
 Select * 
 FROM CollegeNBATurnover
 ORDER BY 2 DESC
+
