@@ -3,6 +3,8 @@ NBA Data Exploration
 
 Skills used: Joins, CTEs, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
+https://www.kaggle.com/justinas/nba-players-data
+https://www.basketball-reference.com/players/j/jamesle01.html
 
 */
 
