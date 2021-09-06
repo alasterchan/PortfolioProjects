@@ -1,3 +1,11 @@
+/*
+
+Supermarket Data Exploration
+https://www.kaggle.com/rohitsahoo/sales-forecasting
+
+*/
+
+
 --Check Table
 SELECT *
 FROM PortfolioProjectSuperstore..supersales
