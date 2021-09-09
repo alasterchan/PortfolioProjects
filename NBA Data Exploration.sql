@@ -52,7 +52,7 @@ ORDER BY 2 DESC
 
 --Percentage of foreign players (Non-USA) in the NBA each year
 SELECT season,
-	COUNT(DISTINCT CASE WHEN country <> 'USA' THEN player_name END) * 1.0/ COUNT(DISTINCT player_name) AS Foreign_Ratio
+	COUNT(DISTINCT CASE WHEN country <> 'USA' THEN player_name END) * 1.0/ COUNT(DISTINCT player_name)*100 AS Foreign_Ratio
 FROM PortfolioProjectNBA..[nbastats96-21]
 GROUP BY season
 
