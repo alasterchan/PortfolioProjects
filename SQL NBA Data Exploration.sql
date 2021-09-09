@@ -24,15 +24,15 @@ Where player_name = 'LeBron James'
 ORDER BY 1
 
 --Calculate BMI for LeBron James in the 2005-06 season
-SELECT season, player_name AS name, team_abbreviation AS team, age, player_height AS height, player_weight AS weight
-,(player_weight)/SQUARE(player_height/100) AS BMI
+SELECT season, player_name AS name, team_abbreviation AS team, age, player_height AS height, player_weight AS weight,
+	(player_weight)/SQUARE(player_height/100) AS BMI
 FROM PortfolioProjectNBA..[nbastats96-21]
 WHERE player_name = 'LeBron James'
 AND season = '2005-06'
 
 --Calculate total games played, career average points, rebounds and assists for players whose names contain "james"
-SELECT player_name AS Name, SUM(gp) AS G, ROUND(SUM(gp*pts)/SUM(gp),1) AS PTS, ROUND(SUM(gp*reb)/sum(gp),1) AS REB
-, ROUND(SUM(gp*ast)/sum(gp),1) AS AST
+SELECT player_name AS Name, SUM(gp) AS G, ROUND(SUM(gp*pts)/SUM(gp),1) AS PTS, ROUND(SUM(gp*reb)/sum(gp),1) AS REB, 
+	ROUND(SUM(gp*ast)/sum(gp),1) AS AST
 FROM PortfolioProjectNBA..[nbastats96-21]
 WHERE player_name LIKE '%james%'
 GROUP BY player_name
@@ -50,10 +50,10 @@ WHERE college <> 'None'
 GROUP BY college
 ORDER BY 2 DESC
 
---No. foreign players (Non-USA) in the NBA each year
-SELECT season, COUNT(DISTINCT player_name) AS 'No. of Foreign Players'
+--Percentage of foreign players (Non-USA) in the NBA each year
+SELECT season,
+	COUNT(DISTINCT CASE WHEN country <> 'USA' THEN player_name END) * 1.0/ COUNT(DISTINCT player_name) AS Foreign_Ratio
 FROM PortfolioProjectNBA..[nbastats96-21]
-WHERE country <> 'USA'
 GROUP BY season
 
 --Country Representation
@@ -75,12 +75,11 @@ GROUP BY season
 ORDER BY 1
 
 --Calculate advanced metrics (eFG%, FTR, TS%) for LeBron James by joining shooting statistics
-SELECT a.player_name, a.season, a.age, b.Tm, b.Pos, b.G, b.GS, b.MP, a.pts AS PTS, a.reb AS REB, a.ast AS AST, b.[FG%], b.[3P%]
-, ROUND((b.FG + b.[3P] * 0.5) / b.FGA, 3) AS 'eFG%'
-, b.[FT%]
-, ROUND(b.[FTA] / b.[FGA], 3) AS 'FTR'
-, ROUND(a.pts/(2*(b.[FGA]+b.[FTA]*0.44)), 3) AS 'TS%'
-
+SELECT a.player_name, a.season, a.age, b.Tm, b.Pos, b.G, b.GS, b.MP, a.pts AS PTS, a.reb AS REB, a.ast AS AST, b.[FG%], b.[3P%], 
+	ROUND((b.FG + b.[3P] * 0.5) / b.FGA, 3) AS 'eFG%', 
+	b.[FT%],
+	ROUND(b.[FTA] / b.[FGA], 3) AS 'FTR',
+	ROUND(a.pts/(2*(b.[FGA]+b.[FTA]*0.44)), 3) AS 'TS%'
 FROM PortfolioProjectNBA..[nbastats96-21] a
 JOIN PortfolioProjectNBA..[lebronshootingstats] b
 	ON a.season = b.Season
@@ -90,8 +89,8 @@ JOIN PortfolioProjectNBA..[lebronshootingstats] b
 WITH top3sps AS
 (
 SELECT player_name AS Name, season AS Season, pts AS PTS, 
-ROW_NUMBER() OVER(PARTITION BY season ORDER BY CAST(pts AS NUMERIC) DESC) AS Rank
-, gp AS 'Games Played'
+	ROW_NUMBER() OVER(PARTITION BY season ORDER BY CAST(pts AS NUMERIC) DESC) AS Rank,
+	gp AS 'Games Played'
 FROM PortfolioProjectNBA..[nbastats96-21]
 WHERE CAST(gp AS NUMERIC)>=(CASE WHEN season='1998-99' THEN 40 ELSE 70 END)
 )
@@ -111,8 +110,8 @@ gp numeric
 )
 INSERT INTO #top3scorers
 SELECT player_name AS Name, season AS Season, pts AS PTS, 
-ROW_NUMBER() OVER(PARTITION BY season ORDER BY CAST(pts AS NUMERIC) DESC) AS [Rank]
-, gp AS 'Games Played'
+	ROW_NUMBER() OVER(PARTITION BY season ORDER BY CAST(pts AS NUMERIC) DESC) AS [Rank],
+	gp AS 'Games Played'
 FROM PortfolioProjectNBA..[nbastats96-21]
 WHERE CAST(gp AS NUMERIC)>=(CASE WHEN season='1998-99' THEN 40 ELSE 70 END)
 SELECT *
