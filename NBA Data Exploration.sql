@@ -39,7 +39,7 @@ GROUP BY player_name
 ORDER BY 3 DESC
 
 --Count total number of undrafted players that played at least a game in the NBA
-SELECT COUNT(player_name) AS 'No. of Undrafted Players'
+SELECT COUNT(DISTINCT player_name) AS 'No. of Undrafted Players'
 FROM PortfolioProjectNBA..[nbastats96-21]
 WHERE draft_number IS NULL
 
