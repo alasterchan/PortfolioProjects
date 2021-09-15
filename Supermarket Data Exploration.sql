@@ -54,15 +54,11 @@ FROM PortfolioProjectSuperstore..supersales
 GROUP BY [Customer Name]
 ORDER BY 2 DESC
 
----Plot Table MOST VALUABLE CUSTOMERS 2015-2019
-
 --States by revenue generated
 SELECT [State], ROUND(SUM([Sales]), 2) AS Revenue
 FROM PortfolioProjectSuperstore..supersales
 GROUP BY [State]
 ORDER BY 2 DESC
-
---Plot Choropleth Map
 
 --Top 20 cities by average price per sales
 SELECT TOP 20 [City], AVG(Sales) AS Sales_Avg, COUNT(1) AS Sales_Count
@@ -80,15 +76,11 @@ FROM PortfolioProjectSuperstore..supersales
 GROUP BY [Category], [Sub-Category]
 ORDER BY 1
 
----Plot Pie Chart
-
 --Annual revenue by region
 SELECT YEAR([Order Date]) AS Year, [Region], ROUND(SUM([Sales]), 2) AS Revenue
 FROM PortfolioProjectSuperstore..supersales
 GROUP BY YEAR([Order Date]), Region
 ORDER BY 1
-
----Plot Stacked Bar Chart
 
 --Number of sales yearly
 SELECT YEAR([Order Date]) AS Year, COUNT(1) AS Sales_Count, SUM(Sales) AS Sales_Sum
