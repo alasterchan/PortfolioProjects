@@ -1,6 +1,6 @@
 # PortfolioProjects
 
-Alaster Chan's data analyst portfolio projects
+Alaster Chan's Data Analyst Portfolio Projects
 
 Tableau Visualizations: https://public.tableau.com/app/profile/alaster.chan
 
