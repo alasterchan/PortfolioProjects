@@ -1,3 +1,9 @@
+/*
+
+Nashville Housing Data Cleaning
+
+*\
+
 
 --Check tables
 SELECT *
