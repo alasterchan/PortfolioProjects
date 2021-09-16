@@ -2,6 +2,6 @@
 
 Alaster Chan's data analyst portfolio projects
 
-Tableau Visualizations: https://www.public.tableau.com/app/profile/alaster.chan
+Tableau Visualizations: https://public.tableau.com/app/profile/alaster.chan
 
-LinkedIn: https://www.linkedin.com/in/alasterchan
+LinkedIn: https://linkedin.com/in/alasterchan
