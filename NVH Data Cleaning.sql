@@ -1,9 +1,9 @@
 /*
 
 Nashville Housing Data Cleaning
+https://www.kaggle.com/tmthyjames/nashville-housing-data
 
-*\
-
+*/
 
 --Check tables
 SELECT *
@@ -41,7 +41,6 @@ JOIN dbo.NashvilleHousing AS y
 WHERE x.PropertyAddress IS NULL
 
 --Divide PropertyAddress and OwnerAddress into separate columns (Address, City, State)
-
 SELECT PropertyAddress
 FROM dbo.NashvilleHousing
 
@@ -61,7 +60,6 @@ SET PropertySepAddress = PARSENAME(REPLACE(PropertyAddress, ‘,’, ‘.’), 2
 
 UPDATE NashvilleHousing
 SET PropertySepCity = PARSENAME(REPLACE(PropertyAddress ‘,’, ‘.’), 1)
-
 
 SELECT OwnerAddress
 FROM dbo.NashvilleHousing
@@ -90,9 +88,7 @@ SET OwnerSepCity = PARSENAME(REPLACE(OwnerAddress ‘,’, ‘.’), 2)
 UPDATE NashvilleHousing
 SET OwnerSepState = PARSENAME(REPLACE(OwnerAddress, ‘,’, ‘.’), 1)
 
-
 --Standardise SoldAsVacant entries
-
 SELECT DISTINCT(SoldAsVacant), COUNT(SoldAsVacant)
 FROM dbo.NashvilleHousing
 GROUP BY SoldAsVacant
@@ -112,7 +108,6 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = ‘Y’ THEN ‘Yes’
 		END
  
 --Remove duplicates
-
 WITH RowNumCTE AS(
 SELECT *,
 ROW_NUMBER() OVER
@@ -130,7 +125,6 @@ FROM RowNumCTE
 WHERE RowNumber > 1
 
 --Delete unused columns
-
 ALTER TABLE dbo.NashvilleHousing
 DROP COLUMN SaleDatre, PropertyAddress, OwnerAddress, TaxDistrict
 
