@@ -1,16 +1,16 @@
 
-—Check tables
+--Check tables
 SELECT *
 FROM dbo.NashvilleHousing
 
-—Convert SaleDate data type 
+--Convert SaleDate data type 
 ALTER TABLE NashvilleHousing
 ADD SaleDate2 DATE;
 
 UPDATE NashvilleHousing
 SET SaleDate2 = CONVERT(DATE, SaleDate)
 
-—Fill in null PropertyAddress values based on matching ParcelID in other rows
+--Fill in null PropertyAddress values based on matching ParcelID in other rows
 SELECT *
 FROM dbo.NashvilleHousing
 WHERE PropertyAddress is NULL
@@ -34,7 +34,7 @@ JOIN dbo.NashvilleHousing AS y
 	AND x.UniqueID<> y.UniqueID 
 WHERE x.PropertyAddress IS NULL
 
-—Divide PropertyAddress and OwnerAddress into separate columns (Address, City, State)
+--Divide PropertyAddress and OwnerAddress into separate columns (Address, City, State)
 
 SELECT PropertyAddress
 FROM dbo.NashvilleHousing
@@ -85,7 +85,7 @@ UPDATE NashvilleHousing
 SET OwnerSepState = PARSENAME(REPLACE(OwnerAddress, ‘,’, ‘.’), 1)
 
 
-—Standardise SoldAsVacant entries
+--Standardise SoldAsVacant entries
 
 SELECT DISTINCT(SoldAsVacant), COUNT(SoldAsVacant)
 FROM dbo.NashvilleHousing
@@ -105,7 +105,7 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = ‘Y’ THEN ‘Yes’
 		ELSE SoldAsVacant
 		END
  
-—Remove duplicates
+--Remove duplicates
 
 WITH RowNumCTE AS(
 SELECT *,
@@ -123,7 +123,7 @@ DELETE
 FROM RowNumCTE
 WHERE RowNumber > 1
 
-—Delete unused columns
+--Delete unused columns
 
 ALTER TABLE dbo.NashvilleHousing
 DROP COLUMN SaleDatre, PropertyAddress, OwnerAddress, TaxDistrict
