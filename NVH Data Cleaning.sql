@@ -5,7 +5,6 @@ https://www.kaggle.com/tmthyjames/nashville-housing-data
 
 */
 
---Check tables
 SELECT *
 FROM dbo.NashvilleHousing
 
